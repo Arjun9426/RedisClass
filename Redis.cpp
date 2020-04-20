@@ -111,6 +111,7 @@ public :
             rank++;
         }
     }
+    // returns the size of a set corresponding to a key
     int Zsize(string key){
         if(key_set_bag->count(key)==0) return 0;
         else return (int)key_set_bag->at(key).size();
@@ -222,7 +223,7 @@ public :
             key_value_bag->at(key).value-=val;
         }
     }
-    // deletes all the key from the container effectively reducing it's size to zero
+    // deletes all the key from the container(key_value_bag) effectively reducing it's size to zero
     void FlushAll(){
         cout<<"All data will be lost! if still want to proceed please enter 1 else 0\n";
         int temp;
@@ -232,12 +233,12 @@ public :
             cout<<"All keys deleted!\n";
         }
     }
-    // return size of container i.e number of keys
+    // return size of container i.e number of keys in key_value_bag
     int size(){
         return (int)key_value_bag->size();
     }
-    // print all key-value pairs from the container
-    void printAll(){
+    // print all key-value pairs from the container key_value_bag
+    void PrintAll(){
         for(auto& Pair : *key_value_bag){
             cout<<Pair.first<<" "<<Pair.second.value<<'\n';
         }
@@ -250,7 +251,9 @@ int main() {
 
     Redis obj;
     srand(time(0));
-    /*
+
+    /* 
+    //code to check efficiency
     for(int i=0;i<1000000;i++){
         string key="";
         for(int j=0;j<10;j++){
@@ -262,8 +265,11 @@ int main() {
         }
         obj.Zadd(key,rand()%(int)(1e9+7),value);
     }
+    //passes in ~ 2 secs
     */
+
     /*
+    //unstructured code for checking some functionalities
     obj.Zadd("arjun",1,"coding");
     obj.Zadd("arjun",2,"cricket");
     obj.Zadd("arjun",4,"movies");
@@ -288,8 +294,11 @@ int main() {
     obj.Set("c",3);
     obj.Rename("a","c");
     obj.FlushAll();
-    obj.printAll();
-    return 0;
+    obj.PrintAll();
+    */
+
+    /*
+    //code to check TTL function and time related parameters this should be checked using running in terminal
     while(true){
         string s;
         cin>>s;
@@ -298,7 +307,6 @@ int main() {
             cout<<obj.TTL("arjun");
         }
     }*/
-
 return 0;
 
 }
